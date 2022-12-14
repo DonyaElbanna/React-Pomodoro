@@ -1,8 +1,9 @@
 import "./App.css";
-import play from "./play.png";
-import pause from "./pause.png";
-import reset from "./reset.png";
+
 import { useState, useEffect } from "react";
+import BreakSet from "./components/BreakSet";
+import SessionSet from "./components/SessionSet";
+import Timer from "./components/Timer";
 
 function App() {
   const [breakTime, setBreakTime] = useState(5);
@@ -13,7 +14,9 @@ function App() {
     sessionTime * 60
   );
   const [breakRemainingTime, setBreakRemainingTime] = useState(breakTime * 60);
-  const [breakTitle, setBreakTitle] = useState("Session");
+  const [timerTitle, setTimerTitle] = useState("Session");
+  const [message, setMessage] = useState("Start Session");
+  const [alarm, setAlarm] = useState(false);
   let sessionMinutes = sessionRemainingTime / 60;
   let sessionSeconds = sessionRemainingTime % 60;
 
@@ -21,44 +24,61 @@ function App() {
   let breakSeconds = breakRemainingTime % 60;
 
   useEffect(() => {
-    if (sessionStart) {
+    const audio = new Audio(
+      "https://www.mediacollege.com/downloads/sound-effects/beep/beep-01.wav"
+    );
+    alarm ? audio.play() : audio.pause();
+
+    // This is cleanup of the effect
+    return () => audio.pause();
+  }, [alarm]);
+
+  useEffect(() => {
+    if (sessionStart && sessionTime !== 0) {
       const timeOut = setTimeout(() => {
         setSessionRemainingTime((prevState) => prevState - 30);
       }, 1000);
       if (sessionRemainingTime === 0) {
         clearTimeout(timeOut);
-        setBreakTitle("Break");
+        setTimerTitle("Break");
         setBreakRemainingTime(breakTime * 60);
+        setMessage("Start Break");
         setBreakStart(false);
+        setAlarm(true);
       }
       return () => {
         clearTimeout(timeOut);
+        setAlarm(false);
       };
     }
-  }, [sessionRemainingTime, breakTime, sessionStart, breakTitle]);
+  }, [sessionRemainingTime, breakTime, sessionStart, timerTitle, sessionTime]);
 
   useEffect(() => {
-    if (breakStart) {
+    if (breakStart && breakTime !== 0) {
       const timeOut = setTimeout(() => {
         setBreakRemainingTime((prevState) => prevState - 30);
       }, 1000);
       if (breakRemainingTime === 0) {
         clearTimeout(timeOut);
-        setBreakTitle("Session");
+        setTimerTitle("Session");
         setSessionRemainingTime(sessionTime * 60);
+        setMessage("Start Session");
         setSessionStart(false);
+        setAlarm(true);
       }
       return () => {
         clearTimeout(timeOut);
+        setAlarm(false);
       };
     }
-  }, [breakRemainingTime, sessionTime, breakStart, breakTitle]);
+  }, [breakRemainingTime, sessionTime, breakTime, breakStart, timerTitle]);
 
   const decBreak = () => {
     setBreakTime(breakTime - 1);
     setBreakRemainingTime(breakTime * 60 - 60);
-    if (breakTime === 0) {
+    if (breakTime <= 0) {
       setBreakTime(0);
+      setBreakRemainingTime(0);
     }
   };
 
@@ -70,8 +90,9 @@ function App() {
   const decSession = () => {
     setSessionTime(sessionTime - 1);
     setSessionRemainingTime(sessionTime * 60 - 60);
-    if (sessionTime === 0) {
+    if (sessionTime <= 0) {
       setSessionTime(0);
+      setSessionRemainingTime(0);
     }
   };
 
@@ -81,103 +102,54 @@ function App() {
   };
 
   const startStop = () => {
-    if (breakTitle === "Session") {
+    if (timerTitle === "Session") {
       setSessionStart(!sessionStart);
-    } else if (breakTitle === "Break") {
+      setMessage("");
+    } else if (timerTitle === "Break") {
       setBreakStart(!breakStart);
+      setMessage("");
     }
+  };
+
+  const resetTimer = () => {
+    setSessionRemainingTime(25 * 60);
+    setSessionTime(25);
+    setBreakTime(5);
+    setBreakRemainingTime(5 * 60);
+    setTimerTitle("Session");
+    setMessage("Start your Session");
+    setBreakStart(false);
+    setSessionStart(false);
   };
 
   return (
     <div className="App">
       <div id="labels-container">
-        <div id="break-label">
-          <h1>Break</h1>
-          <div id="break">
-            <button
-              id="break-decrement"
-              style={{ fontWeight: "bolder" }}
-              onClick={decBreak}
-            >
-              &#8722;
-            </button>
-            <div id="break-length">{breakTime}m</div>
-            <button
-              id="break-increment"
-              style={{ fontWeight: "bolder" }}
-              onClick={incBreak}
-            >
-              +
-            </button>
-          </div>
-        </div>
-        <div id="session-label">
-          <h1>Session</h1>
-          <div id="session">
-            <button
-              id="session-decrement"
-              style={{ fontWeight: "bolder" }}
-              onClick={decSession}
-            >
-              &#8722;
-            </button>
-            <div id="session-length">{sessionTime}m</div>
-            <button
-              id="session-increment"
-              style={{ fontWeight: "bolder" }}
-              onClick={incSession}
-            >
-              +
-            </button>
-          </div>
-        </div>
+        <BreakSet
+          breakTime={breakTime}
+          incBreak={incBreak}
+          decBreak={decBreak}
+        />
+        <SessionSet
+          sessionTime={sessionTime}
+          decSession={decSession}
+          incSession={incSession}
+        />
       </div>
-      <div id="timer">
-        <div id="timer-label">
-          <h1>{breakTitle}</h1>
-          <div
-            id="time-left"
-            style={{ color: sessionRemainingTime <= 60 ? "red" : "black" }}
-          >
-            {breakTitle === "Session"
-              ? Math.floor(sessionMinutes) < 10
-                ? "0" + Math.floor(sessionMinutes)
-                : Math.floor(sessionMinutes)
-              : breakTitle === "Break"
-              ? Math.floor(breakMinutes) < 10
-                ? "0" + Math.floor(breakMinutes)
-                : Math.floor(breakMinutes)
-              : ""}
-            :
-            {breakTitle === "Session"
-              ? sessionSeconds === 0
-                ? "00"
-                : sessionSeconds < 10
-                ? "0" + sessionSeconds
-                : sessionSeconds
-              : breakTitle === "Break"
-              ? breakSeconds === 0
-                ? "00"
-                : breakSeconds < 10
-                ? "0" + breakSeconds
-                : breakSeconds
-              : ""}
-          </div>
-        </div>
-        <div id="timer-control">
-          <button id="start_stop" onClick={startStop}>
-            {(breakTitle === "Session" && sessionStart) ||
-            (breakTitle === "Break" && breakStart) ? (
-              <img src={pause} alt="pause button" width="15"></img>
-            ) : (
-              <img src={play} alt="play button" width="15"></img>
-            )}
-          </button>
-          <button id="reset">
-            <img src={reset} alt="reset button" width="15"></img>
-          </button>
-        </div>
-      </div>
+      <Timer
+        timerTitle={timerTitle}
+        sessionMinutes={sessionMinutes}
+        sessionSeconds={sessionSeconds}
+        sessionRemainingTime={sessionRemainingTime}
+        breakMinutes={breakMinutes}
+        breakSeconds={breakSeconds}
+        breakRemainingTime={breakRemainingTime}
+        sessionStart={sessionStart}
+        breakStart={breakStart}
+        startStop={startStop}
+        message={message}
+        resetTimer={resetTimer}
+      />
     </div>
   );
 }

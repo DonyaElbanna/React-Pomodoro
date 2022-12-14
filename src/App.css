@@ -3,19 +3,20 @@
 }
 
 .App {
-  margin-top: 5%;
+  margin-top: 3%;
   width: 70%;
 }
 
 #labels-container {
   display: flex;
-  margin-bottom: 5%;
+  margin-bottom: 2%;
 }
 
 #break,
 #session {
   display: flex;
-  gap: 10px;
+  width: 100px;
+  /*       gap: 50px; */
 }
 
 h1 {
