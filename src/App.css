@@ -12,7 +12,23 @@
   margin-bottom: 5%;
 }
 
+#break,
+#session {
+  display: flex;
+  gap: 10px;
+}
+
+h1 {
+  text-align: center;
+}
+
 #timer {
   margin: auto;
   text-align: center;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-size: 24px;
 }
