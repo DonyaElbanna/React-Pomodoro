@@ -122,6 +122,11 @@ function App() {
     setSessionStart(false);
   };
 
+  const percentage = () => {
+    return 100 - (sessionRemainingTime / (sessionTime * 60)) * 100;
+    // console.log(progress);
+  };
+
   return (
     <div className="App">
       <div id="labels-container">
@@ -149,6 +154,7 @@ function App() {
         startStop={startStop}
         message={message}
         resetTimer={resetTimer}
+        percentage={percentage()}
       />
     </div>
   );

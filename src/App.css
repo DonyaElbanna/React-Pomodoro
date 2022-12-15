@@ -2,6 +2,10 @@
   margin: auto;
 }
 
+html {
+  background-color: #1976d2;
+}
+
 .App {
   margin-top: 3%;
   width: 70%;
@@ -12,20 +16,69 @@
   margin-bottom: 2%;
 }
 
+#break-label,
+#session-label {
+  background-color: #4791db;
+  padding: 10px 20px 0 20px;
+  border: 4px solid #115293;
+  border-radius: 20px;
+}
+
+#break-controls,
+#session-control {
+  display: flex;
+  margin-top: 10px;
+}
+
+#break-length,
+#session-length {
+  font-size: 30px;
+}
+
 #break,
 #session {
   display: flex;
   width: 100px;
-  /*       gap: 50px; */
 }
 
-h1 {
-  text-align: center;
+#break-decrement,
+#break-increment,
+#session-decrement,
+#session-increment {
+  background-color: #4791db;
+  color: #a52c55;
+  font-size: 40px;
+  font-weight: bolder;
 }
 
 #timer {
   margin: auto;
+  margin-top: 10%;
   text-align: center;
+  width: 300px;
+  color: #d8e9f7;
+  border-radius: 50%;
+  border: 10px solid #191970;
+  box-shadow: 1px 1px 0px 2px #191970;
+  background: linear-gradient(rgba(17, 82, 147, 1), rgba(67, 112, 170, 0.78));
+}
+
+#start-stop, #reset {
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 20px;
+  /* width: 50px */
+}
+
+#timer-contents {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+  margin-top: 40px;
+}
+
+#time-left {
+  font-size: 40px;
 }
 
 button {

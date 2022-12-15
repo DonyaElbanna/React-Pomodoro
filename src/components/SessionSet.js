@@ -4,7 +4,7 @@ function SessionSet({ sessionTime, decSession, incSession }) {
   return (
     <div id="session-label">
       <h1>Set Session Timer</h1>
-      <div id="session">
+      <div id="session-control">
         <button
           id="session-decrement"
           style={{ fontWeight: "bolder" }}
