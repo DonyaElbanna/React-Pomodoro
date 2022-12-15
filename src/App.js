@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import BreakSet from "./components/BreakSet";
 import SessionSet from "./components/SessionSet";
 import Timer from "./components/Timer";
+import TimerControls from "./components/TimerControls";
 
 function App() {
   const [breakTime, setBreakTime] = useState(5);
@@ -36,7 +37,7 @@ function App() {
   useEffect(() => {
     if (sessionStart && sessionTime !== 0) {
       const timeOut = setTimeout(() => {
-        setSessionRemainingTime((prevState) => prevState - 30);
+        setSessionRemainingTime((prevState) => prevState - 1);
       }, 1000);
       if (sessionRemainingTime === 0) {
         clearTimeout(timeOut);
@@ -56,7 +57,7 @@ function App() {
   useEffect(() => {
     if (breakStart && breakTime !== 0) {
       const timeOut = setTimeout(() => {
-        setBreakRemainingTime((prevState) => prevState - 30);
+        setBreakRemainingTime((prevState) => prevState - 1);
       }, 1000);
       if (breakRemainingTime === 0) {
         clearTimeout(timeOut);
@@ -123,7 +124,12 @@ function App() {
   };
 
   const percentage = () => {
-    return 100 - (sessionRemainingTime / (sessionTime * 60)) * 100;
+    if (timerTitle === "Session") {
+      return 100 - (sessionRemainingTime / (sessionTime * 60)) * 100;
+    } else if (timerTitle === "Break") {
+      return 100 - (breakRemainingTime / (breakTime * 60)) * 100;
+    }
+
     // console.log(progress);
   };
 
@@ -155,6 +161,14 @@ function App() {
         message={message}
         resetTimer={resetTimer}
         percentage={percentage()}
+      />
+      <TimerControls
+        message={message}
+        startStop={startStop}
+        timerTitle={timerTitle}
+        sessionStart={sessionStart}
+        breakStart={breakStart}
+        resetTimer={resetTimer}
       />
     </div>
   );

@@ -1,9 +1,10 @@
 * {
   margin: auto;
+  font-family: "Orbitron", sans-serif;
 }
 
 html {
-  background-color: #1976d2;
+  background-color: #1e213f;
 }
 
 .App {
@@ -14,14 +15,16 @@ html {
 #labels-container {
   display: flex;
   margin-bottom: 2%;
+  font-size: 10px;
 }
 
 #break-label,
 #session-label {
-  background-color: #4791db;
+  background-color: #4791db45;
   padding: 10px 20px 0 20px;
   border: 4px solid #115293;
   border-radius: 20px;
+  color: #d8e9f7;
 }
 
 #break-controls,
@@ -32,7 +35,7 @@ html {
 
 #break-length,
 #session-length {
-  font-size: 30px;
+  font-size: 25px;
 }
 
 #break,
@@ -45,29 +48,33 @@ html {
 #break-increment,
 #session-decrement,
 #session-increment {
-  background-color: #4791db;
+  background-color: transparent;
+
   color: #a52c55;
   font-size: 40px;
   font-weight: bolder;
 }
 
 #timer {
+  stroke-linecap: round;
   margin: auto;
-  margin-top: 10%;
+  margin-top: 5%;
   text-align: center;
-  width: 300px;
+  width: 200px;
   color: #d8e9f7;
-  border-radius: 50%;
+  border-radius: 90%;
   border: 10px solid #191970;
-  box-shadow: 1px 1px 0px 2px #191970;
+  box-shadow: 2px 3px 0px 2px #0606356b;
   background: linear-gradient(rgba(17, 82, 147, 1), rgba(67, 112, 170, 0.78));
 }
 
-#start-stop, #reset {
-  background-color: transparent;
+#start-stop,
+#reset {
+  background-color: #4791db45;
+  border: 4px solid #a52c55;
   border-radius: 50%;
-  padding: 20px;
-  /* width: 50px */
+  width: 60px;
+  padding: 10px;
 }
 
 #timer-contents {
@@ -79,6 +86,19 @@ html {
 
 #time-left {
   font-size: 40px;
+}
+
+#timer-control {
+  color: #d8e9f7;
+  text-align: center;
+  margin-top: 3%;
+}
+
+#timer-btns {
+  display: flex;
+  width: 40%;
+  margin: auto;
+  margin-top: 3%;
 }
 
 button {
