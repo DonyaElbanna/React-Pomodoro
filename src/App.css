@@ -3,8 +3,24 @@
   font-family: "Orbitron", sans-serif;
 }
 
-html {
-  background-color: #1e213f;
+:root {
+  --main-background: #1e213f;
+  --secondary-backgroud: #07083f;
+  --lighter-background: #4791db45;
+  --main-blue: #115293;
+  --dark-blue: #191970;
+  --shadow: #0606356b;
+  --accent: #a52c55;
+  --text: #d8e9f7;
+}
+
+body {
+  background-image: linear-gradient(
+    to bottom right,
+    var(--main-background),
+    var(--secondary-backgroud)
+  );
+  background-attachment: fixed;
 }
 
 .App {
@@ -20,11 +36,11 @@ html {
 
 #break-label,
 #session-label {
-  background-color: #4791db45;
+  background-color: var(--lighter-background);
   padding: 10px 20px 0 20px;
-  border: 4px solid #115293;
+  border: 4px solid var(--main-blue);
   border-radius: 20px;
-  color: #d8e9f7;
+  color: var(--text);
 }
 
 #break-controls,
@@ -50,7 +66,7 @@ html {
 #session-increment {
   background-color: transparent;
 
-  color: #a52c55;
+  color: var(--accent);
   font-size: 40px;
   font-weight: bolder;
 }
@@ -61,20 +77,25 @@ html {
   margin-top: 5%;
   text-align: center;
   width: 200px;
-  color: #d8e9f7;
+  color: var(--text);
   border-radius: 90%;
-  border: 10px solid #191970;
-  box-shadow: 2px 3px 0px 2px #0606356b;
-  background: linear-gradient(rgba(17, 82, 147, 1), rgba(67, 112, 170, 0.78));
+  border: 10px solid var(--dark-blue);
+  box-shadow: 2px 3px 0px 2px var(--shadow);
+  background: linear-gradient(var(--main-blue), var(--dark-blue));
 }
 
 #start-stop,
-#reset {
-  background-color: #4791db45;
-  border: 4px solid #a52c55;
-  border-radius: 50%;
-  width: 60px;
-  padding: 10px;
+#reset,
+#mute {
+  background-color: transparent;
+  color: var(--accent);
+}
+
+#mute {
+  text-align: center;
+}
+.icon {
+  font-size: 40px;
 }
 
 #timer-contents {
@@ -89,14 +110,14 @@ html {
 }
 
 #timer-control {
-  color: #d8e9f7;
+  color: var(--text);
   text-align: center;
   margin-top: 3%;
 }
 
 #timer-btns {
   display: flex;
-  width: 40%;
+  width: 24%;
   margin: auto;
   margin-top: 3%;
 }
