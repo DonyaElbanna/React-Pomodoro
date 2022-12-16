@@ -3,8 +3,8 @@ import "../App.css";
 function BreakSet({ breakTime, decBreak, incBreak }) {
   return (
     <div id="break-label">
-      <h1>Set Break Timer</h1>
-      <div id="break-controls">
+      <h1>Break Timer</h1>
+      <div id="break-control">
         <button id="break-decrement" onClick={decBreak}>
           &#8722;
         </button>

@@ -1,175 +1,165 @@
 import "./App.css";
-
 import { useState, useEffect } from "react";
 import BreakSet from "./components/BreakSet";
 import SessionSet from "./components/SessionSet";
 import Timer from "./components/Timer";
 import TimerControls from "./components/TimerControls";
+import alarm from "./beep.wav";
+import useSound from "use-sound";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function App() {
   const [breakTime, setBreakTime] = useState(5);
   const [sessionTime, setSessionTime] = useState(25);
-  const [sessionStart, setSessionStart] = useState(false);
-  const [breakStart, setBreakStart] = useState(false);
-  const [sessionRemainingTime, setSessionRemainingTime] = useState(
-    sessionTime * 60
-  );
-  const [breakRemainingTime, setBreakRemainingTime] = useState(breakTime * 60);
+  const [secondsLeft, setSecondsLeft] = useState(sessionTime * 60);
+  const [active, setActive] = useState(false);
   const [timerTitle, setTimerTitle] = useState("Session");
+  const [volume, setVolume] = useState(1);
+  const [alarmSound] = useSound(alarm, { volume: volume });
   const [message, setMessage] = useState("Start Session");
-  const [alarm, setAlarm] = useState(false);
-  let sessionMinutes = sessionRemainingTime / 60;
-  let sessionSeconds = sessionRemainingTime % 60;
 
-  let breakMinutes = breakRemainingTime / 60;
-  let breakSeconds = breakRemainingTime % 60;
+  const mute = () => {
+    if (volume === 1) {
+      setVolume(0);
+    } else {
+      setVolume(1);
+    }
+  };
+
+  const formatTimeLeft = (seconds) => {
+    return `${
+      Math.floor(seconds / 60) > 9
+        ? Math.floor(seconds / 60)
+        : "0" + Math.floor(seconds / 60)
+    }:${seconds % 60 > 9 ? seconds % 60 : "0" + (seconds % 60)}`;
+  };
+
+  const startTimer = () => {
+    setActive(!active);
+    setMessage("");
+  };
 
   useEffect(() => {
-    const audio = new Audio(
-      "https://www.mediacollege.com/downloads/sound-effects/beep/beep-01.wav"
-    );
-    alarm ? audio.play() : audio.pause();
-
-    // This is cleanup of the effect
-    return () => audio.pause();
-  }, [alarm]);
-
-  useEffect(() => {
-    if (sessionStart && sessionTime !== 0) {
-      const timeOut = setTimeout(() => {
-        setSessionRemainingTime((prevState) => prevState - 1);
+    if (active) {
+      const interval = setInterval(() => {
+        setSecondsLeft((secondsLeft) => secondsLeft - 30);
       }, 1000);
-      if (sessionRemainingTime === 0) {
-        clearTimeout(timeOut);
+
+      if (timerTitle === "Session" && secondsLeft === 0) {
+        clearInterval(interval);
+        setActive(false);
+        alarmSound();
         setTimerTitle("Break");
-        setBreakRemainingTime(breakTime * 60);
+        setSecondsLeft(breakTime * 60);
         setMessage("Start Break");
-        setBreakStart(false);
-        setAlarm(true);
-      }
-      return () => {
-        clearTimeout(timeOut);
-        setAlarm(false);
-      };
-    }
-  }, [sessionRemainingTime, breakTime, sessionStart, timerTitle, sessionTime]);
-
-  useEffect(() => {
-    if (breakStart && breakTime !== 0) {
-      const timeOut = setTimeout(() => {
-        setBreakRemainingTime((prevState) => prevState - 1);
-      }, 1000);
-      if (breakRemainingTime === 0) {
-        clearTimeout(timeOut);
+      } else if (timerTitle === "Break" && secondsLeft === 0) {
+        clearInterval(interval);
+        setActive(false);
+        alarmSound();
         setTimerTitle("Session");
-        setSessionRemainingTime(sessionTime * 60);
-        setMessage("Start Session");
-        setSessionStart(false);
-        setAlarm(true);
+        setSecondsLeft(sessionTime * 60);
+        setMessage("Start another Session");
       }
-      return () => {
-        clearTimeout(timeOut);
-        setAlarm(false);
-      };
-    }
-  }, [breakRemainingTime, sessionTime, breakTime, breakStart, timerTitle]);
 
-  const decBreak = () => {
-    setBreakTime(breakTime - 1);
-    setBreakRemainingTime(breakTime * 60 - 60);
-    if (breakTime <= 0) {
-      setBreakTime(0);
-      setBreakRemainingTime(0);
+      return () => clearInterval(interval);
+    }
+  }, [active, secondsLeft, alarmSound, timerTitle, breakTime, sessionTime]);
+
+  const incSession = () => {
+    setSessionTime(sessionTime + 1);
+    if (timerTitle === "Session") {
+      setSecondsLeft((sessionTime + 1) * 60);
+    }
+  };
+
+  const decSession = () => {
+    setSessionTime(sessionTime - 1);
+    if (sessionTime <= 0) {
+      setSessionTime(0);
+      if (timerTitle === "Session") {
+        setSecondsLeft(0);
+      }
+    } else if (timerTitle === "Session") {
+      setSecondsLeft((sessionTime - 1) * 60);
     }
   };
 
   const incBreak = () => {
     setBreakTime(breakTime + 1);
-    setBreakRemainingTime(breakTime * 60 + 60);
-  };
-
-  const decSession = () => {
-    setSessionTime(sessionTime - 1);
-    setSessionRemainingTime(sessionTime * 60 - 60);
-    if (sessionTime <= 0) {
-      setSessionTime(0);
-      setSessionRemainingTime(0);
+    if (timerTitle === "Break") {
+      setSecondsLeft((breakTime + 1) * 60);
     }
   };
 
-  const incSession = () => {
-    setSessionTime(sessionTime + 1);
-    setSessionRemainingTime(sessionTime * 60 + 60);
-  };
-
-  const startStop = () => {
-    if (timerTitle === "Session") {
-      setSessionStart(!sessionStart);
-      setMessage("");
+  const decBreak = () => {
+    setBreakTime(breakTime - 1);
+    if (breakTime <= 0) {
+      setBreakTime(0);
+      if (timerTitle === "Break") {
+        setSecondsLeft(0);
+      }
     } else if (timerTitle === "Break") {
-      setBreakStart(!breakStart);
-      setMessage("");
+      setSecondsLeft((breakTime - 1) * 60);
     }
   };
 
-  const resetTimer = () => {
-    setSessionRemainingTime(25 * 60);
+  const reset = () => {
+    setTimerTitle("Session");
     setSessionTime(25);
     setBreakTime(5);
-    setBreakRemainingTime(5 * 60);
-    setTimerTitle("Session");
-    setMessage("Start your Session");
-    setBreakStart(false);
-    setSessionStart(false);
+    setSecondsLeft(25 * 60);
+    setMessage("Start Session");
   };
 
   const percentage = () => {
     if (timerTitle === "Session") {
-      return 100 - (sessionRemainingTime / (sessionTime * 60)) * 100;
+      return 100 - (secondsLeft / (sessionTime * 60)) * 100;
     } else if (timerTitle === "Break") {
-      return 100 - (breakRemainingTime / (breakTime * 60)) * 100;
+      return 100 - (secondsLeft / (breakTime * 60)) * 100;
     }
-
-    // console.log(progress);
   };
 
   return (
     <div className="App">
-      <div id="labels-container">
-        <BreakSet
-          breakTime={breakTime}
-          incBreak={incBreak}
-          decBreak={decBreak}
-        />
-        <SessionSet
-          sessionTime={sessionTime}
-          decSession={decSession}
-          incSession={incSession}
-        />
-      </div>
-      <Timer
-        timerTitle={timerTitle}
-        sessionMinutes={sessionMinutes}
-        sessionSeconds={sessionSeconds}
-        sessionRemainingTime={sessionRemainingTime}
-        breakMinutes={breakMinutes}
-        breakSeconds={breakSeconds}
-        breakRemainingTime={breakRemainingTime}
-        sessionStart={sessionStart}
-        breakStart={breakStart}
-        startStop={startStop}
-        message={message}
-        resetTimer={resetTimer}
-        percentage={percentage()}
-      />
-      <TimerControls
-        message={message}
-        startStop={startStop}
-        timerTitle={timerTitle}
-        sessionStart={sessionStart}
-        breakStart={breakStart}
-        resetTimer={resetTimer}
-      />
+      <Container>
+        <div id="labels-container">
+          <Row>
+            <Col>
+              <BreakSet
+                breakTime={breakTime}
+                incBreak={incBreak}
+                decBreak={decBreak}
+              />
+            </Col>
+            <Col>
+              <SessionSet
+                sessionTime={sessionTime}
+                decSession={decSession}
+                incSession={incSession}
+              />
+            </Col>
+          </Row>
+        </div>
+        <Row>
+          <Timer
+            timerTitle={timerTitle}
+            percentage={percentage()}
+            timeLeft={formatTimeLeft(secondsLeft)}
+          />
+        </Row>
+        <Row>
+          <TimerControls
+            message={message}
+            active={active}
+            startTimer={startTimer}
+            reset={reset}
+            mute={mute}
+            volume={volume}
+          />
+        </Row>
+      </Container>
     </div>
   );
 }

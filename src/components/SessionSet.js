@@ -3,26 +3,18 @@ import "../App.css";
 function SessionSet({ sessionTime, decSession, incSession }) {
   return (
     <div id="session-label">
-      <h1>Set Session Timer</h1>
+      <h1>Session Timer</h1>
       <div id="session-control">
-        <button
-          id="session-decrement"
-          style={{ fontWeight: "bolder" }}
-          onClick={decSession}
-        >
+        <button id="session-decrement" onClick={decSession}>
           &#8722;
         </button>
         <div id="session-length">{sessionTime}</div>
-        <button
-          id="session-increment"
-          style={{ fontWeight: "bolder" }}
-          onClick={incSession}
-        >
+        <button id="session-increment" onClick={incSession}>
           +
         </button>
       </div>
       <div>
-        {sessionTime <= 0 ? "You can't set time equal to 0 minutes" : <br />}
+        {sessionTime <= 0 ? "You can't set session to 0 minutes" : <br />}
       </div>
     </div>
   );
