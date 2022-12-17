@@ -1,4 +1,5 @@
 import "../App.css";
+import Toast from "react-bootstrap/Toast";
 
 function BreakSet({ breakTime, decBreak, incBreak }) {
   return (
@@ -12,8 +13,24 @@ function BreakSet({ breakTime, decBreak, incBreak }) {
         <button id="break-increment" onClick={incBreak}>
           +
         </button>
+        {breakTime === 0 ? (
+          <Toast
+            style={{
+              position: "absolute",
+              top: '25%',
+              left: 0,
+              right: 0,
+              zIndex: 999,
+              color: "red",
+              marginTop: "1%",
+            }}
+          >
+            <Toast.Body>You can't set break time to 0 minutes</Toast.Body>
+          </Toast>
+        ) : (
+          ""
+        )}
       </div>
-      <div>{breakTime <= 0 ? "You can't set break to 0 minutes" : <br />}</div>
     </div>
   );
 }

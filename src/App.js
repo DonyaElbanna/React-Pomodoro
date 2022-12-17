@@ -7,8 +7,8 @@ import TimerControls from "./components/TimerControls";
 import alarm from "./beep.wav";
 import useSound from "use-sound";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 function App() {
   const [breakTime, setBreakTime] = useState(5);
@@ -62,7 +62,6 @@ function App() {
         setSecondsLeft(sessionTime * 60);
         setMessage("Start another Session");
       }
-
       return () => clearInterval(interval);
     }
   }, [active, secondsLeft, alarmSound, timerTitle, breakTime, sessionTime]);
@@ -124,41 +123,37 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <div id="labels-container">
-          <Row>
-            <Col>
-              <BreakSet
-                breakTime={breakTime}
-                incBreak={incBreak}
-                decBreak={decBreak}
-              />
-            </Col>
-            <Col>
-              <SessionSet
-                sessionTime={sessionTime}
-                decSession={decSession}
-                incSession={incSession}
-              />
-            </Col>
-          </Row>
-        </div>
-        <Row>
-          <Timer
-            timerTitle={timerTitle}
-            percentage={percentage()}
-            timeLeft={formatTimeLeft(secondsLeft)}
-          />
-        </Row>
-        <Row>
-          <TimerControls
-            message={message}
-            active={active}
-            startTimer={startTimer}
-            reset={reset}
-            mute={mute}
-            volume={volume}
-          />
-        </Row>
+        <Tabs defaultActiveKey="session" variant="pills"  >
+          <Tab eventKey="break" title="Set Break Timer" id="tab-one">
+            <BreakSet
+              breakTime={breakTime}
+              incBreak={incBreak}
+              decBreak={decBreak}
+            />
+          </Tab>
+          <Tab eventKey="session" title="Set Session Timer" id="tabe-two">
+            <SessionSet
+              sessionTime={sessionTime}
+              decSession={decSession}
+              incSession={incSession}
+            />
+          </Tab>
+        </Tabs>
+
+        <Timer
+          timerTitle={timerTitle}
+          percentage={percentage()}
+          timeLeft={formatTimeLeft(secondsLeft)}
+        />
+        <TimerControls
+          message={message}
+          active={active}
+          startTimer={startTimer}
+          reset={reset}
+          mute={mute}
+          volume={volume}
+          secondsLeft={secondsLeft}
+        />
       </Container>
     </div>
   );

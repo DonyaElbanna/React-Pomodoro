@@ -12,6 +12,7 @@ function TimerControls({
   reset,
   mute,
   volume,
+  secondsLeft,
 }) {
   return (
     <div id="timer-control">
@@ -20,7 +21,11 @@ function TimerControls({
         <div id="timer-btns">
           <Row>
             <Col>
-              <button id="start-stop" onClick={startTimer}>
+              <button
+                id="start-stop"
+                onClick={startTimer}
+                disabled={secondsLeft === 0 ? true : false}
+              >
                 {active ? (
                   <span className="material-symbols-outlined icon">
                     pause_circle
