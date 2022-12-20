@@ -6,7 +6,7 @@ import {
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-function Timer({ timerTitle, percentage, timeLeft }) {
+function Timer({ timerTitle, percentage, timeLeft, theme }) {
   return (
     <div id="timer-container">
       <div id="timer">
@@ -15,10 +15,7 @@ function Timer({ timerTitle, percentage, timeLeft }) {
           value={percentage}
           styles={buildStyles({
             pathTransitionDuration: 0.5,
-            pathColor: "#ec407a",
-            textColor: "green",
-            textSize: "20px",
-            trailColor: "none",
+            pathColor: theme ? "green" : "#ec407a",
           })}
         >
           <Container>

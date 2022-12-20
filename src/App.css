@@ -183,3 +183,53 @@ button:disabled span {
     width: 50%;
   }
 }
+
+/* Toggle */
+.toggle {
+  display: flex;
+  justify-content: space-between;
+  border: 3px solid rgb(207, 201, 201);
+  border-radius: 1rem;
+  position: fixed;
+  padding: 2px;
+  cursor: pointer;
+  width: 60px;
+  margin-top: 10px;
+}
+
+.toggle > * {
+  width: 1.5rem;
+  height: 1.5rem;
+  /* color: rgb(155, 150, 150); */
+}
+
+.t-button {
+  border-radius: 100%;
+  background: rgb(155, 150, 150);
+  position: absolute;
+}
+
+.sun {
+  color: #f5c32c;
+  width: 20px;
+  height: 20px;
+}
+
+.moon {
+  color: blue;
+  width: 20px;
+  height: 20px;
+}
+
+[data-theme="light"] {
+  --main-background: #9fa4db;
+  --secondary-backgroud: #484988;
+  --lighter-background: #4791db45;
+  --main-blue: #115293;
+  --dark-blue: #8c8cc4;
+  --shadow: #0606356b;
+  --title: #7e052d;
+  --accent: #6d0629;
+  --disabled: #6e3649;
+  --text: #011729;
+}

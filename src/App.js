@@ -9,6 +9,7 @@ import useSound from "use-sound";
 import Container from "react-bootstrap/Container";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import ToggleButton from "./components/ToggleButton";
 
 function App() {
   const [breakTime, setBreakTime] = useState(5);
@@ -19,6 +20,16 @@ function App() {
   const [volume, setVolume] = useState(1);
   const [alarmSound] = useSound(alarm, { volume: volume });
   const [message, setMessage] = useState("Start Session");
+  const [theme, setTheme] = useState(false);
+
+  const toggleTheme = () => {
+    setTheme(!theme);
+    if (!theme) {
+      document.documentElement.setAttribute("data-theme", "light");
+    } else {
+      document.documentElement.removeAttribute("data-theme", "light");
+    }
+  };
 
   const mute = () => {
     if (volume === 1) {
@@ -123,7 +134,8 @@ function App() {
   return (
     <div className="App">
       <Container>
-        <Tabs defaultActiveKey="session" variant="pills"  >
+        <ToggleButton theme={theme} toggleTheme={toggleTheme} />
+        <Tabs defaultActiveKey="session" variant="pills">
           <Tab eventKey="break" title="Set Break Timer" id="tab-one">
             <BreakSet
               breakTime={breakTime}
@@ -144,6 +156,7 @@ function App() {
           timerTitle={timerTitle}
           percentage={percentage()}
           timeLeft={formatTimeLeft(secondsLeft)}
+          theme={theme}
         />
         <TimerControls
           message={message}
