@@ -49,7 +49,11 @@ function App() {
 
   const startTimer = () => {
     setActive(!active);
-    setMessage("");
+    if (active) {
+      setMessage("Resume");
+    } else if (!active) {
+      setMessage("");
+    }
   };
 
   useEffect(() => {
@@ -157,6 +161,7 @@ function App() {
           percentage={percentage()}
           timeLeft={formatTimeLeft(secondsLeft)}
           theme={theme}
+          startTimer={startTimer}
         />
         <TimerControls
           message={message}

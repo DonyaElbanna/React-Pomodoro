@@ -6,16 +6,16 @@ import {
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-function Timer({ timerTitle, percentage, timeLeft, theme }) {
+function Timer({ timerTitle, percentage, timeLeft, theme, startTimer }) {
   return (
     <div id="timer-container">
-      <div id="timer">
+      <div id="timer" onClick={startTimer}>
         <CircularProgressbarWithChildren
           strokeWidth={4}
           value={percentage}
           styles={buildStyles({
             pathTransitionDuration: 0.5,
-            pathColor: theme ? "green" : "#ec407a",
+            pathColor: theme ? "#f06292" : "#ec407a",
           })}
         >
           <Container>

@@ -18,7 +18,7 @@ function SessionSet({ sessionTime, decSession, incSession }) {
         <Toast
           style={{
             position: "absolute",
-            top: 0,
+            top: "25%",
             left: 0,
             right: 0,
             zIndex: 999,
