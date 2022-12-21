@@ -1,7 +1,7 @@
 import "../App.css";
 import Toast from "react-bootstrap/Toast";
 
-function BreakSet({ breakTime, decBreak, incBreak }) {
+function BreakSet({ breakTime, decBreak, incBreak, changeBreakTime }) {
   return (
     <div id="break-label">
       <h1>Break Timer</h1>
@@ -9,7 +9,14 @@ function BreakSet({ breakTime, decBreak, incBreak }) {
         <button id="break-decrement" onClick={decBreak}>
           &#8722;
         </button>
-        <div id="break-length">{breakTime}</div>
+        <div id="break-length">
+          <input
+            id="input-length"
+            type="number"
+            value={breakTime.toString()}
+            onChange={changeBreakTime}
+          />
+        </div>
         <button id="break-increment" onClick={incBreak}>
           +
         </button>
@@ -17,7 +24,7 @@ function BreakSet({ breakTime, decBreak, incBreak }) {
           <Toast
             style={{
               position: "absolute",
-              top: '25%',
+              top: "25%",
               left: 0,
               right: 0,
               zIndex: 999,

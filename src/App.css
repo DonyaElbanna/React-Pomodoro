@@ -46,6 +46,8 @@ h1 {
   font-size: 1.5rem;
 }
 
+/* Break and Session boxes*/
+
 #break-label,
 #session-label {
   background-color: var(--lighter-background);
@@ -75,12 +77,37 @@ h1 {
   display: flex;
   margin-top: 10px;
   width: 70%;
+  justify-content: center;
 }
 
 #break-length,
 #session-length {
   font-size: 25px;
 }
+
+#input-length {
+  width: 60px;
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  color: var(--text);
+  text-align: center;
+}
+
+#input-length:focus {
+  outline: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type="number"] {
+  -moz-appearance: textfield;
+} */
 
 #break,
 #session {
@@ -98,6 +125,8 @@ h1 {
   font-weight: bolder;
 }
 
+/* Timer Body */
+
 #timer-container {
   width: 330px;
   height: 330px;
@@ -112,7 +141,6 @@ h1 {
   border: 10px solid var(--dark-blue);
   box-shadow: 2px 3px 0px 2px var(--shadow);
   background: linear-gradient(var(--main-blue), var(--dark-blue));
-  cursor: pointer;
 }
 
 #timer-contents {
@@ -126,6 +154,8 @@ h1 {
 #time-left {
   font-size: 40px;
 }
+
+/* Timer Controls */
 
 #message {
   font-size: 20px;
@@ -151,8 +181,8 @@ h1 {
 }
 
 #timer-btns {
-  width: 24%;
-  margin-top: 1%;
+  width: 30%;
+  margin-top: 2%;
 }
 
 button {
@@ -170,35 +200,12 @@ button:disabled span {
   color: red;
 }
 
-@media screen and (max-width: 800px) {
-  #break-label,
-  #session-label {
-    width: fit-content;
-    margin-top: 3%;
-  }
-  #break-control,
-  #session-control {
-    width: 100%;
-  }
-  #timer-container {
-    width: 250px;
-    height: 250px;
-    padding: 19px;
-  }
-  #timer-title {
-    margin-top: auto;
-  }
+/* Toggle */
 
-  #time-left {
-    font-size: 30px;
-    margin-top: auto;
-  }
-  #timer-btns {
-    width: 50%;
-  }
+#toggle-container {
+  margin-left: 85%;
 }
 
-/* Toggle */
 .toggle {
   display: flex;
   justify-content: space-between;
@@ -232,4 +239,34 @@ button:disabled span {
   color: blue;
   width: 20px;
   height: 20px;
+}
+
+/* Responsive */
+
+@media screen and (max-width: 800px) {
+  #break-label,
+  #session-label {
+    width: fit-content;
+    margin-top: 3%;
+  }
+  #break-control,
+  #session-control {
+    width: 100%;
+  }
+  #timer-container {
+    width: 250px;
+    height: 250px;
+    padding: 19px;
+  }
+  #timer-title {
+    margin-top: auto;
+  }
+
+  #time-left {
+    font-size: 30px;
+    margin-top: auto;
+  }
+  #timer-btns {
+    width: 50%;
+  }
 }

@@ -12,7 +12,8 @@ function TimerControls({
   reset,
   mute,
   volume,
-  secondsLeft,
+  sessionSecondsLeft,
+  breakSecondsLeft,
 }) {
   return (
     <div id="timer-control">
@@ -24,7 +25,13 @@ function TimerControls({
               <button
                 id="start-stop"
                 onClick={startTimer}
-                disabled={secondsLeft === 0 ? true : false}
+                disabled={
+                  timerTitle === "Session" && sessionSecondsLeft === 0
+                    ? true
+                    : timerTitle === "Break" && breakSecondsLeft === 0
+                    ? true
+                    : false
+                }
               >
                 {active ? (
                   <span className="material-symbols-outlined icon">
@@ -44,19 +51,19 @@ function TimerControls({
                 </span>
               </button>
             </Col>
-          </Row>
-          <Row>
-            <button onClick={mute} id="mute">
-              {volume === 0 ? (
-                <span className="material-symbols-outlined icon">
-                  volume_up
-                </span>
-              ) : (
-                <span className="material-symbols-outlined icon">
-                  volume_off
-                </span>
-              )}
-            </button>
+            <Col>
+              <button onClick={mute} id="mute">
+                {volume === 0 ? (
+                  <span className="material-symbols-outlined icon">
+                    volume_up
+                  </span>
+                ) : (
+                  <span className="material-symbols-outlined icon">
+                    volume_off
+                  </span>
+                )}
+              </button>
+            </Col>
           </Row>
         </div>
       </Container>

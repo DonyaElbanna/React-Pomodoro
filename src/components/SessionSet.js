@@ -1,7 +1,12 @@
 import "../App.css";
 import Toast from "react-bootstrap/Toast";
 
-function SessionSet({ sessionTime, decSession, incSession }) {
+function SessionSet({
+  sessionTime,
+  decSession,
+  incSession,
+  changeSessionTime,
+}) {
   return (
     <div id="session-label">
       <h1>Session Timer</h1>
@@ -9,7 +14,14 @@ function SessionSet({ sessionTime, decSession, incSession }) {
         <button id="session-decrement" onClick={decSession}>
           &#8722;
         </button>
-        <div id="session-length">{sessionTime}</div>
+        <div id="session-length">
+          <input
+            id="input-length"
+            type="number"
+            value={sessionTime.toString()}
+            onChange={changeSessionTime}
+          />
+        </div>
         <button id="session-increment" onClick={incSession}>
           +
         </button>

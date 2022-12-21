@@ -6,10 +6,17 @@ import {
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-function Timer({ timerTitle, percentage, timeLeft, theme, startTimer }) {
+function Timer({
+  timerTitle,
+  percentage,
+  timeLeft,
+  theme,
+  sessionSecondsLeft,
+  breakSecondsLeft,
+}) {
   return (
     <div id="timer-container">
-      <div id="timer" onClick={startTimer}>
+      <div id="timer">
         <CircularProgressbarWithChildren
           strokeWidth={4}
           value={percentage}
@@ -24,7 +31,13 @@ function Timer({ timerTitle, percentage, timeLeft, theme, startTimer }) {
                 <h1 id="timer-title">{timerTitle}</h1>
               </Row>
               <Row>
-                <div id="time-left">{timeLeft}</div>
+                {timerTitle === "Session" ? (
+                  <div id="time-left">{sessionSecondsLeft}</div>
+                ) : timerTitle === "Break" ? (
+                  <div id="time-left">{breakSecondsLeft}</div>
+                ) : (
+                  ""
+                )}
               </Row>
             </div>
           </Container>
