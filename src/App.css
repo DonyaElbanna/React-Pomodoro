@@ -182,7 +182,7 @@ input::-webkit-inner-spin-button {
 
 #timer-btns {
   width: 30%;
-  margin-top: 2%;
+  margin-top: 2.5%;
 }
 
 button {
@@ -268,5 +268,6 @@ button:disabled span {
   }
   #timer-btns {
     width: 50%;
+    margin-top: 5%;
   }
 }
