@@ -14,6 +14,7 @@
   --accent: #a52c55;
   --disabled: #6e3649;
   --text: #d8e9f7;
+  --timer-text: #d8e9f7;
 }
 
 [data-theme="light"] {
@@ -27,6 +28,7 @@
   --accent: #d81b60;
   --disabled: #aa8b99;
   --text: #043257;
+  --timer-text: #d8e9f7;
 }
 
 body {
@@ -136,7 +138,7 @@ input::-webkit-inner-spin-button {
 #timer {
   stroke-linecap: round;
   margin-top: 1%;
-  color: var(--text);
+  color: var(--timer-text);
   border-radius: 50%;
   border: 10px solid var(--dark-blue);
   box-shadow: 2px 3px 0px 2px var(--shadow);

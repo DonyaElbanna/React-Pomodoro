@@ -92,11 +92,9 @@ function App() {
     if (active) {
       const interval = setInterval(() => {
         if (timerTitle === "Session") {
-          setSessionSecondsLeft(
-            (sessionSecondsLeft) => sessionSecondsLeft - 30
-          );
+          setSessionSecondsLeft((sessionSecondsLeft) => sessionSecondsLeft - 1);
         } else if (timerTitle === "Break") {
-          setBreakSecondsLeft((breakSecondsLeft) => breakSecondsLeft - 30);
+          setBreakSecondsLeft((breakSecondsLeft) => breakSecondsLeft - 1);
         }
       }, 1000);
 
