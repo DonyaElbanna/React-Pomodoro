@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/React-Pomodoro/static/css/main.e894c844.css",
+    "main.js": "/React-Pomodoro/static/js/main.03bf73cd.js",
+    "static/js/845.d6ba17f5.chunk.js": "/React-Pomodoro/static/js/845.d6ba17f5.chunk.js",
+    "static/js/787.3ac07f2a.chunk.js": "/React-Pomodoro/static/js/787.3ac07f2a.chunk.js",
+    "static/media/alarm.mp3": "/React-Pomodoro/static/media/alarm.0cbb5adfa4ca49bb47c6.mp3",
+    "static/media/startTimer.mp3": "/React-Pomodoro/static/media/startTimer.2968a7452038c15f4208.mp3",
+    "static/media/pauseTimer.mp3": "/React-Pomodoro/static/media/pauseTimer.d73c474578244c6a1b9f.mp3",
+    "static/media/click.mp3": "/React-Pomodoro/static/media/click.3c8db537f53afb33abba.mp3",
+    "index.html": "/React-Pomodoro/index.html",
+    "main.e894c844.css.map": "/React-Pomodoro/static/css/main.e894c844.css.map",
+    "main.03bf73cd.js.map": "/React-Pomodoro/static/js/main.03bf73cd.js.map",
+    "845.d6ba17f5.chunk.js.map": "/React-Pomodoro/static/js/845.d6ba17f5.chunk.js.map",
+    "787.3ac07f2a.chunk.js.map": "/React-Pomodoro/static/js/787.3ac07f2a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e894c844.css",
+    "static/js/main.03bf73cd.js"
+  ]
+}
