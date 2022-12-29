@@ -2,6 +2,29 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Description
+
+A responsive Pomodoro timer with customizable settings for session and break timers and with a light and dark themes.
+It's a project for the [Front End Development Libraries](https://www.freecodecamp.org/learn/front-end-development-libraries/) course on [freecodecamp](https://www.freecodecamp.org/)
+
+## Technologies used
+- [React](https://reactjs.org/)
+- [React Hooks](https://reactjs.org/docs/hooks-intro.html)
+- [React-Bootstrap](https://react-bootstrap.github.io/) for styling
+- [react-circular-progressbar](https://github.com/kevinsqi/react-circular-progressbar) for the circular progressbar component
+- [use-sound](https://github.com/joshwcomeau/use-sound) react hook for playing sounds effects
+
+## Demo
+
+#### Dark theme
+![Dark theme](/timer-dark.PNG)
+
+#### Light theme
+![Light theme](/timer-light.PNG)
+
+#### Mobile view
+![Mobile view](/timer-mobile.PNG)
+
 ## Available Scripts
 
 In the project directory, you can run:
